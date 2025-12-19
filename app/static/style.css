@@ -1,0 +1,759 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  background-color: #f5f5f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+header {
+  background-color: #ff8c42;
+  color: white;
+  padding: 1.5rem 2rem;
+}
+
+header h1 {
+  font-size: 2rem;
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  margin: 0;
+}
+
+main {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.login-container {
+  max-width: 420px;
+  margin: 3rem auto;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffeef0 100%);
+  padding: 2.5rem;
+  border-radius: 25px;
+  border: 2px dashed #ffb6c1;
+  position: relative;
+}
+
+
+.login-container h2 {
+  margin-bottom: 1.8rem;
+  color: #ff69b4;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: center;
+  transform: rotate(-1deg);
+}
+
+.form-group {
+  margin-bottom: 1.3rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  color: #d63384;
+  font-family: 'Indie Flower', cursive;
+  font-size: 1.1rem;
+  transform: rotate(0.5deg);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.9rem;
+  border: 2px solid #ffb6c1;
+  border-radius: 15px;
+  font-size: 1rem;
+  font-family: 'Indie Flower', cursive;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #ff69b4;
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
+  transform: scale(1.02);
+}
+
+.login-container button[type="submit"] {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Indie Flower', cursive;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-top: 0.5rem;
+  transform: rotate(-0.5deg);
+}
+
+.login-container button[type="submit"]:hover {
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+  transform: rotate(0.5deg) scale(1.05);
+}
+
+.login-container button[type="submit"]:active {
+  transform: rotate(0deg) scale(0.98);
+}
+
+.login-container p {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-family: 'Indie Flower', cursive;
+  font-size: 1.1rem;
+  color: #d63384;
+}
+
+.login-container a {
+  color: #ff69b4;
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 2px dotted #ffb6c1;
+  transition: all 0.3s ease;
+}
+
+.login-container a:hover {
+  color: #ff1493;
+  border-bottom-color: #ff69b4;
+  transform: scale(1.05);
+}
+
+button:not(.edit-btn):not(.remove-btn):not(.save-btn):not(.login-container button):not(.app-header button):not(.empty-bowl button) {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Indie Flower', cursive;
+  transition: all 0.3s ease;
+  transform: rotate(-0.3deg);
+}
+
+button:not(.edit-btn):not(.remove-btn):not(.save-btn):not(.login-container button):not(.app-header button):not(.empty-bowl button):hover {
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+  transform: rotate(0.3deg) scale(1.05);
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background: linear-gradient(135deg, #ffeef0 0%, #ffe5e8 100%);
+  color: #d63384;
+  padding: 1rem;
+  border-radius: 15px;
+  margin-bottom: 1.5rem;
+  border: 2px dashed #ffb6c1;
+  font-family: 'Indie Flower', cursive;
+  font-size: 1.1rem;
+  text-align: center;
+  transform: rotate(-0.5deg);
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffeef0 100%);
+  padding: 1.5rem 2rem;
+  border-radius: 20px;
+  border: 2px dashed #ffb6c1;
+}
+
+.app-header h2 {
+  color: #ff69b4;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  font-weight: 700;
+  transform: rotate(-0.5deg);
+  margin: 0;
+}
+
+.app-header button[type="submit"] {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'Indie Flower', cursive;
+  transition: all 0.3s ease;
+  transform: rotate(0.5deg);
+}
+
+.app-header button[type="submit"]:hover {
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+  transform: rotate(-0.5deg) scale(1.05);
+}
+
+.app-layout {
+  display: grid;
+  grid-template-columns: 1.5fr 2fr 1fr;
+  gap: 2rem;
+}
+
+.ingredients-section,
+.saved-bowls-section {
+  background: linear-gradient(135deg, #fff5f5 0%, #ffeef0 100%);
+  padding: 1.5rem;
+  border-radius: 20px;
+  border: 2px dashed #ffb6c1;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.ingredients-section h3,
+.saved-bowls-section h3 {
+  margin-bottom: 1rem;
+  color: #ff69b4;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border-bottom: 2px dashed #ffb6c1;
+  padding-bottom: 0.5rem;
+  transform: rotate(-0.5deg);
+}
+
+.ingredient-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ingredient-item {
+  padding: 1.2rem;
+  border: 2px dashed #ffb6c1;
+  border-radius: 15px;
+  background: white;
+  transition: all 0.3s ease;
+  transform: rotate(0.3deg);
+}
+
+.ingredient-item:hover {
+  transform: rotate(-0.3deg) scale(1.02);
+  border-color: #ff69b4;
+}
+
+.ingredient-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.ingredient-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.ingredient-name {
+  font-weight: 600;
+  color: #d63384;
+  font-family: 'Indie Flower', cursive;
+  font-size: 1.1rem;
+}
+
+.ingredient-unit {
+  font-size: 0.9rem;
+  color: #ff69b4;
+  font-weight: 400;
+  margin-left: 0.3rem;
+}
+
+.ingredient-nutrition {
+  font-size: 0.9rem;
+  color: #ff69b4;
+  margin-left: auto;
+  font-family: 'Indie Flower', cursive;
+}
+
+.ingredient-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.ingredient-actions input[type="number"] {
+  padding: 0.5rem;
+  border: 2px solid #ffb6c1;
+  border-radius: 12px;
+  font-family: 'Indie Flower', cursive;
+  font-size: 1rem;
+  width: 70px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.ingredient-actions input[type="number"]:focus {
+  outline: none;
+  border-color: #ff69b4;
+  box-shadow: 0 0 0 3px rgba(255, 105, 180, 0.2);
+  transform: scale(1.05);
+}
+
+.edit-btn {
+  background: linear-gradient(135deg, #ffb6c1 0%, #ff91a4 100%);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: 'Indie Flower', cursive;
+  transition: all 0.3s ease;
+  transform: rotate(-0.3deg);
+}
+
+.edit-btn:hover {
+  background: linear-gradient(135deg, #ff91a4 0%, #ffb6c1 100%);
+  transform: rotate(0.3deg) scale(1.05);
+}
+
+.bowl-section {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.bowl-display h3 {
+  color: #ff69b4;
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  border-bottom: 2px dashed #ffb6c1;
+  padding-bottom: 0.5rem;
+  transform: rotate(-0.5deg);
+}
+
+.bowl-graphic {
+  min-height: 300px;
+  background: linear-gradient(to bottom, #fff5e6 0%, #ffe6cc 100%);
+  border-radius: 50%;
+  margin: 1.5rem auto;
+  width: 300px;
+  height: 300px;
+  padding: 2rem;
+  border: 3px solid #ffcc99;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fruits and other ingredients - positioned within yogurt circle */
+.bowl-fruit {
+  position: absolute;
+  object-fit: contain;
+  animation: drop-in 0.3s ease-out;
+  z-index: 10;
+}
+
+/* Position fruits within yogurt circle (260px diameter, centered) - FIXED POSITIONS */
+/* Bananas - bottom left quadrant of yogurt circle - always same position */
+.bowl-pos-banana {
+  width: 100px !important;
+  height: auto;
+  bottom: 40px;
+  left: calc(50% - 90px);
+  transform: translateX(-40%) rotate(-1deg);
+}
+
+/* Strawberries - centered in yogurt circle - always same position */
+.bowl-pos-strawberry {
+  width: 75px !important;
+  height: auto;
+  bottom: 75px;
+  left:45%;
+  transform: translateX(-50%);
+}
+
+/* Blueberries - top right quadrant of yogurt circle - always same position */
+.bowl-pos-blueberry {
+  width: 75px;
+  height: auto;
+  bottom: 130px;
+  left: 70%;
+  transform: translateX(-50%);
+}
+
+/* Nuts - slightly smaller than yogurt, centered in bowl */
+.bowl-fruit.bowl-pos-nuts,
+img.bowl-fruit.bowl-pos-nuts,
+.bowl-ingredient-drizzle[title="Nuts"],
+img.bowl-ingredient-drizzle[title="Nuts"] {
+  display: block !important;
+  width: 220px !important;
+  max-width: 220px !important;
+  min-width: 220px !important;
+  height: 220px !important;
+  max-height: 220px !important;
+  min-height: 220px !important;
+  object-fit: contain !important;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+/* Yogurt - always centered, large, stack on top of each other */
+.bowl-yogurt {
+  position: absolute;
+  border-radius: 50%;
+  width: 260px;
+  height: 260px;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+}
+
+.bowl-pos-greek-yogurt,
+.bowl-pos-plain-yogurt {
+  background-color: white;
+  border: 2px solid #d0d0d0;
+}
+
+.bowl-pos-strawberry-yogurt {
+  background-color: #ffe5f0;
+  border: 2px solid #ffb6c1;
+}
+
+/* Default ingredients - fixed position in middle-left */
+.bowl-pos-default {
+  width: 55px;
+  height: auto;
+  bottom: 120px;
+  left: calc(50% - 50px);
+  transform: translateX(-50%);
+}
+
+/* Drizzles - centered in yogurt circle, same size as yogurt (260px) */
+.bowl-ingredient-drizzle {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  object-fit: contain;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 10;
+  animation: drop-in 0.3s ease-out;
+}
+
+@keyframes drop-in {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.empty-bowl-graphic {
+  color: #ff69b4;
+  font-family: 'Indie Flower', cursive;
+  font-size: 1.3rem;
+  text-align: center;
+  padding: 2rem;
+  transform: rotate(-1deg);
+}
+
+.empty-bowl {
+  text-align: center;
+  padding: 3rem;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffeef0 100%);
+  border-radius: 25px;
+  border: 2px dashed #ffb6c1;
+  margin: 2rem 0;
+}
+
+.empty-bowl p {
+  font-family: 'Indie Flower', cursive;
+  font-size: 1.3rem;
+  color: #d63384;
+  margin-bottom: 1.5rem;
+  transform: rotate(0.5deg);
+}
+
+.empty-bowl button {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Indie Flower', cursive;
+  transition: all 0.3s ease;
+  transform: rotate(-0.5deg);
+}
+
+.empty-bowl button:hover {
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+  transform: rotate(0.5deg) scale(1.05);
+}
+
+.empty-bowl button:active {
+  transform: rotate(0deg) scale(0.98);
+}
+
+.bowl-ingredients {
+  margin: 1.5rem 0;
+}
+
+.bowl-ingredients h4 {
+  margin-bottom: 1rem;
+  color: #ff69b4;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.6rem;
+  font-weight: 700;
+  transform: rotate(-0.5deg);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+table th,
+table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+table th {
+  background: linear-gradient(135deg, #ffeef0 0%, #ffe5e8 100%);
+  font-weight: 600;
+  color: #ff69b4;
+  font-family: 'Indie Flower', cursive;
+  font-size: 1.1rem;
+  border-bottom: 2px dashed #ffb6c1;
+}
+
+.bowl-ingredients table td {
+  font-family: 'Indie Flower', cursive !important;
+  font-size: 1.1rem !important;
+  color: #333;
+}
+
+table tr:hover {
+  background: linear-gradient(135deg, #fff5f5 0%, #ffeef0 100%);
+}
+
+.remove-btn {
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff4d7a 100%);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Indie Flower', cursive;
+  transition: all 0.3s ease;
+  transform: rotate(0.3deg);
+}
+
+.remove-btn:hover {
+  background: linear-gradient(135deg, #ff4d7a 0%, #ff6b9d 100%);
+  transform: rotate(-0.3deg) scale(1.05);
+}
+
+.nutrition-summary {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #fff5f5 0%, #ffeef0 100%);
+  border-radius: 20px;
+  border: 2px dashed #ffb6c1;
+  transform: rotate(0.3deg);
+}
+
+.nutrition-summary h4 {
+  margin-bottom: 0.75rem;
+  color: #ff69b4;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  font-weight: 700;
+  transform: rotate(-0.5deg);
+}
+
+.nutrition-values {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.nutrition-item {
+  padding: 0.75rem;
+  background: white;
+  border-radius: 12px;
+  border: 1px dashed #ffb6c1;
+  font-family: 'Indie Flower', cursive;
+  color: #d63384;
+}
+
+.nutrition-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.tag {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: 'Indie Flower', cursive;
+  transform: rotate(-0.5deg);
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  transform: rotate(0.5deg) scale(1.1);
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'Indie Flower', cursive;
+  transition: all 0.3s ease;
+  transform: rotate(-0.5deg);
+}
+
+.save-btn:hover {
+  background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+  transform: rotate(0.5deg) scale(1.05);
+}
+
+.save-btn:active {
+  transform: rotate(0deg) scale(0.98);
+}
+
+.saved-bowls-list ul {
+  list-style: none;
+}
+
+.saved-bowls-list p {
+  font-family: 'Indie Flower', cursive !important;
+  font-size: 1.1rem !important;
+  color: #333;
+  padding: 1rem;
+  text-align: center;
+}
+
+.saved-bowl-item {
+  margin-bottom: 0.75rem;
+}
+
+.saved-bowl-item a {
+  display: block;
+  padding: 1rem;
+  background: white;
+  border-radius: 15px;
+  text-decoration: none;
+  color: #d63384;
+  border: 2px dashed #ffb6c1;
+  transition: all 0.3s ease;
+  font-family: 'Indie Flower', cursive;
+  font-size: 1.1rem;
+  transform: rotate(0.3deg);
+}
+
+.saved-bowl-item a:hover {
+  background: linear-gradient(135deg, #fff5f5 0%, #ffeef0 100%);
+  border-color: #ff69b4;
+  color: #ff69b4;
+  transform: rotate(-0.3deg) scale(1.02);
+}
+
+.ingredient-edit-form {
+  padding: 0.75rem;
+}
+
+.nutrition-inputs {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 0.5rem 1rem;
+  margin: 0.75rem 0;
+}
+
+.nutrition-inputs label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.85rem;
+}
+
+.nutrition-inputs input {
+  padding: 0.4rem;
+  border: 2px solid #ffb6c1;
+  border-radius: 8px;
+  font-family: 'Indie Flower', cursive;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  width: 80px;
+  box-sizing: border-box;
+}
+
+.nutrition-inputs input:focus {
+  outline: none;
+  border-color: #ff69b4;
+  box-shadow: 0 0 0 2px rgba(255, 105, 180, 0.2);
+}
+
+.form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.form-actions button[type="button"] {
+  background-color: #666;
+}
+
+.form-actions button[type="button"]:hover {
+  background-color: #555;
+}
+
+@media (max-width: 1200px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+}
+

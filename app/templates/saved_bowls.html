@@ -1,0 +1,29 @@
+<div class="saved-bowls-list">
+  {% if bowls %}
+  <ul>
+    {% for bowl in bowls %}
+    <li class="saved-bowl-item">
+      <a 
+        hx-get="/bowl?bowl_id={{ bowl.id }}"
+        hx-target="#bowl-section"
+        hx-swap="innerHTML"
+        href="#">
+        {{ bowl.name }}
+      </a>
+      <form 
+        hx-post="/bowl/delete"
+        hx-target="#saved-bowls"
+        hx-swap="innerHTML"
+        hx-confirm="Are you sure you want to delete this bowl?"
+        style="display: inline; margin-left: 0.5rem;">
+        <input type="hidden" name="bowl_id" value="{{ bowl.id }}" />
+        <button type="submit" class="remove-btn" style="font-size: 0.8rem; padding: 0.2rem 0.5rem;">Remove</button>
+      </form>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No saved bowls yet. Build a bowl and save it to see it here!</p>
+  {% endif %}
+</div>
+

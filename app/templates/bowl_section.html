@@ -1,0 +1,153 @@
+<div class="bowl-display">
+  <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+    <div id="bowl-name-display">
+      <h3 style="margin: 0; display: inline-block;">{{ bowl.name }}</h3>
+      <button 
+        hx-get="/bowl/edit_name?bowl_id={{ bowl.id }}"
+        hx-target="#bowl-name-display"
+        hx-swap="innerHTML"
+        class="edit-btn"
+        style="font-size: 0.9rem; padding: 0.4rem 0.8rem; margin-left: 1rem;">
+        Edit Name
+      </button>
+    </div>
+    <form 
+      hx-post="/bowl/reset"
+      hx-target="#bowl-section"
+      hx-swap="innerHTML"
+      style="display: inline; margin-left: auto;">
+      <button type="submit" class="edit-btn" style="font-size: 0.9rem; padding: 0.4rem 0.8rem;">Create New Bowl</button>
+    </form>
+  </div>
+  
+  <div class="bowl-graphic">
+    {% if bowl_data.ingredients %}
+      {# Yogurts first - stack on top of each other with increasing z-index #}
+      {% for ingredient in bowl_data.ingredients %}
+        {% if not ingredient.is_drizzle and "yogurt" in ingredient.name.lower() %}
+          {% if "greek yogurt" in ingredient.name.lower() %}
+            <div class="bowl-yogurt bowl-pos-greek-yogurt" style="z-index: {{ loop.index }};" title="{{ ingredient.name }}"></div>
+          {% elif "plain yogurt" in ingredient.name.lower() %}
+            <div class="bowl-yogurt bowl-pos-plain-yogurt" style="z-index: {{ loop.index }};" title="{{ ingredient.name }}"></div>
+          {% elif "strawberry yogurt" in ingredient.name.lower() %}
+            <div class="bowl-yogurt bowl-pos-strawberry-yogurt" style="z-index: {{ loop.index }};" title="{{ ingredient.name }}"></div>
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      
+      {# Other ingredients - positioned within yogurt circle - fixed positions #}
+      {% for ingredient in bowl_data.ingredients %}
+        {% if not ingredient.is_drizzle and "yogurt" not in ingredient.name.lower() and ingredient.bowl_image_filename %}
+          {% if "banana" in ingredient.name.lower() %}
+            <img src="/images/{{ ingredient.bowl_image_filename }}" alt="{{ ingredient.name }}" class="bowl-fruit bowl-pos-banana" title="{{ ingredient.name }}" />
+          {% elif "strawberry" in ingredient.name.lower() %}
+            <img src="/images/{{ ingredient.bowl_image_filename }}" alt="{{ ingredient.name }}" class="bowl-fruit bowl-pos-strawberry" title="{{ ingredient.name }}" />
+          {% elif "blueberr" in ingredient.name.lower() %}
+            <img src="/images/{{ ingredient.bowl_image_filename }}" alt="{{ ingredient.name }}" class="bowl-fruit bowl-pos-blueberry" title="{{ ingredient.name }}" />
+          {% elif "nuts" in ingredient.name.lower() %}
+            <img src="/images/{{ ingredient.bowl_image_filename }}" alt="{{ ingredient.name }}" class="bowl-fruit bowl-pos-nuts" title="{{ ingredient.name }}" />
+          {% else %}
+            <img src="/images/{{ ingredient.bowl_image_filename }}" alt="{{ ingredient.name }}" class="bowl-fruit bowl-pos-default" title="{{ ingredient.name }}" />
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      
+      {# Drizzles on top #}
+      {% for ingredient in bowl_data.ingredients %}
+        {% if ingredient.is_drizzle and ingredient.bowl_image_filename %}
+        <img src="/images/{{ ingredient.bowl_image_filename }}" alt="{{ ingredient.name }}" class="bowl-ingredient-drizzle" title="{{ ingredient.name }}" />
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <div class="empty-bowl-graphic">Empty Bowl</div>
+    {% endif %}
+  </div>
+
+  <div class="bowl-ingredients">
+    <h4>Ingredients in Bowl:</h4>
+    {% if bowl_data.ingredients %}
+    <table>
+      <thead>
+        <tr>
+          <th>Ingredient</th>
+          <th>Quantity</th>
+          <th>Calories</th>
+          <th>Protein</th>
+          <th>Fiber</th>
+          <th>Sugar</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ingredient in bowl_data.ingredients %}
+        <tr>
+          <td>{{ ingredient.name }}</td>
+          <td>
+            {% if "strawberry" in ingredient.name.lower() and "yogurt" not in ingredient.name.lower() %}
+              {{ ingredient.quantity|round(0)|int }} {{ ingredient.unit }}
+            {% else %}
+              {{ "%.2f"|format(ingredient.quantity) }} {{ ingredient.unit }}
+            {% endif %}
+          </td>
+          <td>{{ "%.2f"|format(ingredient.calories) }}</td>
+          <td>{{ "%.2f"|format(ingredient.protein) }}g</td>
+          <td>{{ "%.2f"|format(ingredient.fiber) }}g</td>
+          <td>{{ "%.2f"|format(ingredient.sugar) }}g</td>
+          <td>
+            <form 
+              hx-post="/bowl/remove_ingredient"
+              hx-target="#bowl-section"
+              hx-swap="innerHTML"
+              style="display: inline;">
+              <input type="hidden" name="bowl_id" value="{{ bowl.id }}" />
+              <input type="hidden" name="ingredient_id" value="{{ ingredient.id }}" />
+              <button type="submit" class="remove-btn">Remove</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p>No ingredients yet. Add some from the ingredient list!</p>
+    {% endif %}
+  </div>
+
+  <div class="nutrition-summary">
+    <h4>Nutrition Summary</h4>
+    <div class="nutrition-values">
+      <div class="nutrition-item">
+        <strong>Total Calories:</strong> {{ "%.2f"|format(bowl_data.total_calories) }}
+      </div>
+      <div class="nutrition-item">
+        <strong>Total Protein:</strong> {{ "%.2f"|format(bowl_data.total_protein) }}g
+      </div>
+      <div class="nutrition-item">
+        <strong>Total Fiber:</strong> {{ "%.2f"|format(bowl_data.total_fiber) }}g
+      </div>
+      <div class="nutrition-item">
+        <strong>Total Sugar:</strong> {{ "%.2f"|format(bowl_data.total_sugar) }}g
+      </div>
+    </div>
+    
+    {% if bowl_data.tags %}
+    <div class="nutrition-tags">
+      {% for tag in bowl_data.tags %}
+      <span class="tag">{{ tag }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+
+  {% if not bowl.saved %}
+  <form 
+    hx-post="/bowl/save"
+    hx-target="#bowl-section"
+    hx-swap="innerHTML"
+    style="margin-top: 20px;">
+    <input type="hidden" name="bowl_id" value="{{ bowl.id }}" />
+    <button type="submit" class="save-btn">Save Bowl</button>
+  </form>
+  {% endif %}
+</div>
+

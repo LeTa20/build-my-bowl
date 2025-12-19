@@ -1,0 +1,29 @@
+<div id="main-content">
+  <div class="login-container">
+    <h2>Create An Account</h2>
+    {% if error %}
+    <div class="error-message">{{ error }}</div>
+    {% endif %}
+    <form hx-post="/register" hx-target="#main-content" hx-swap="outerHTML" hx-indicator="#loading">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required autocomplete="name" />
+      </div>
+      <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required autocomplete="username" />
+      </div>
+      <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required autocomplete="new-password" minlength="6" />
+        <small style="display: block; margin-top: 0.5rem; color: #666; font-size: 0.9rem;">
+          Password must be at least 6 characters long and contain at least one special character (!@#$%^&* etc.)
+        </small>
+      </div>
+      <button type="submit">Create Account 💕</button>
+      <div id="loading" class="htmx-indicator" style="display: none; text-align: center; margin-top: 1rem; font-family: 'Indie Flower', cursive; color: #ff69b4;">Registering... ✨</div>
+    </form>
+    <p>Already have an account? <a href="/login" hx-get="/login" hx-target="#main-content" hx-swap="outerHTML">Back to Login</a></p>
+  </div>
+</div>
+

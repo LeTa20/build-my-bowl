@@ -1,0 +1,55 @@
+<div class="ingredient-list">
+  {% for ingredient in ingredients %}
+  <div class="ingredient-item" id="ingredient-row-{{ ingredient.id }}">
+    <div class="ingredient-info">
+      {% if ingredient.icon_filename %}
+      <img src="/images/{{ ingredient.icon_filename }}" alt="{{ ingredient.name }}" class="ingredient-icon" title="{{ ingredient.name }}" />
+      {% endif %}
+      <span class="ingredient-name">
+        {{ ingredient.name }}
+        {% if "yogurt" in ingredient.name.lower() %}
+          <span class="ingredient-unit">(cup)</span>
+        {% elif "banana" in ingredient.name.lower() %}
+          <span class="ingredient-unit">(medium)</span>
+        {% elif "blueberr" in ingredient.name.lower() %}
+          <span class="ingredient-unit">(cup)</span>
+        {% elif "strawberry" in ingredient.name.lower() and "yogurt" not in ingredient.name.lower() %}
+          <span class="ingredient-unit">(one)</span>
+        {% elif "honey" in ingredient.name.lower() %}
+          <span class="ingredient-unit">(tbsp)</span>
+        {% elif "peanut" in ingredient.name.lower() %}
+          <span class="ingredient-unit">(tbsp)</span>
+        {% elif "nuts" in ingredient.name.lower() %}
+          <span class="ingredient-unit">(cup)</span>
+        {% endif %}
+      </span>
+    </div>
+    <div class="ingredient-actions">
+      <button 
+        hx-get="/ingredients/edit?ingredient_id={{ ingredient.id }}{% if current_bowl %}&bowl_id={{ current_bowl.id }}{% endif %}"
+        hx-target="#ingredient-row-{{ ingredient.id }}"
+        hx-swap="outerHTML"
+        class="edit-btn">
+        Edit
+      </button>
+      <form 
+        hx-post="/bowl/add_ingredient"
+        hx-target="#bowl-section"
+        hx-swap="innerHTML"
+        style="display: inline;">
+        {% if current_bowl %}
+        <input type="hidden" name="bowl_id" value="{{ current_bowl.id }}" />
+        {% endif %}
+        <input type="hidden" name="ingredient_id" value="{{ ingredient.id }}" />
+        {% if "strawberry" in ingredient.name.lower() and "yogurt" not in ingredient.name.lower() %}
+        <input type="number" name="quantity" value="1" step="1" min="1" style="width: 60px;" />
+        {% else %}
+        <input type="number" name="quantity" value="1.00" step="0.01" min="0.01" style="width: 60px;" />
+        {% endif %}
+        <button type="submit">Add to Bowl</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+

@@ -1,0 +1,35 @@
+<h3 style="margin: 0; display: inline-block;">
+  <form 
+    hx-post="/bowl/update_name"
+    hx-target="#bowl-section"
+    hx-swap="innerHTML"
+    style="display: inline-flex; align-items: center; gap: 0.5rem;">
+    <input 
+      type="hidden" 
+      name="bowl_id" 
+      value="{{ bowl.id }}" />
+    <input 
+      type="text" 
+      name="name" 
+      value="{{ bowl.name }}" 
+      required
+      autofocus
+      style="padding: 0.5rem; border: 2px solid #ffb6c1; border-radius: 12px; font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: #ff69b4; font-weight: 700; min-width: 200px; background: white;" />
+    <button 
+      type="submit" 
+      class="edit-btn"
+      style="font-size: 0.9rem; padding: 0.4rem 0.8rem;">
+      Save
+    </button>
+    <button 
+      type="button"
+      hx-get="/bowl?bowl_id={{ bowl.id }}"
+      hx-target="#bowl-section"
+      hx-swap="innerHTML"
+      class="edit-btn"
+      style="font-size: 0.9rem; padding: 0.4rem 0.8rem; background: linear-gradient(135deg, #ccc 0%, #999 100%);">
+      Cancel
+    </button>
+  </form>
+</h3>
+

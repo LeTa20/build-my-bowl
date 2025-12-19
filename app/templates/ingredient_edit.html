@@ -1,0 +1,48 @@
+<div class="ingredient-item" id="ingredient-row-{{ ingredient.id }}">
+  <form 
+    hx-post="/ingredients/update"
+    hx-target="#ingredient-list"
+    hx-swap="innerHTML"
+    class="ingredient-edit-form">
+    <input type="hidden" name="ingredient_id" value="{{ ingredient.id }}" />
+    {% if bowl_id %}
+    <input type="hidden" name="bowl_id" value="{{ bowl_id }}" />
+    {% endif %}
+    
+    <div class="ingredient-info">
+      {% if ingredient.icon_filename %}
+      <img src="/images/{{ ingredient.icon_filename }}" alt="{{ ingredient.name }}" class="ingredient-icon" />
+      {% endif %}
+      <span class="ingredient-name">{{ ingredient.name }}</span>
+    </div>
+    
+    <div class="nutrition-inputs">
+      <label>
+        Calories:
+        <input type="number" name="calories" value="{{ ingredient.calories }}" step="0.1" min="0" required />
+      </label>
+      <label>
+        Protein (g):
+        <input type="number" name="protein" value="{{ ingredient.protein }}" step="0.1" min="0" required />
+      </label>
+      <label>
+        Fiber (g):
+        <input type="number" name="fiber" value="{{ ingredient.fiber }}" step="0.1" min="0" required />
+      </label>
+      <label>
+        Sugar (g):
+        <input type="number" name="sugar" value="{{ ingredient.sugar }}" step="0.1" min="0" required />
+      </label>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit">Save</button>
+      <button 
+        type="button"
+        onclick="location.reload()">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
+
