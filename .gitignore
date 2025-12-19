@@ -46,3 +46,7 @@ Thumbs.db
 # Logs
 *.log
 
+# KGD files (submission documents)
+KGD.md
+KGD.pdf
+
